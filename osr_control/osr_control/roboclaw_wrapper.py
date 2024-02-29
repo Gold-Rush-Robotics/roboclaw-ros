@@ -36,58 +36,58 @@ class RoboclawWrapper(Node):
                 ('drive_acceleration_factor', Parameter.Type.DOUBLE),
                 ('corner_acceleration_factor', Parameter.Type.DOUBLE),
                 ('velocity_timeout', Parameter.Type.DOUBLE),
-                ('roboclaw_mapping.drive_left_front.address', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_left_front.channel', Parameter.Type.STRING),
-                ('roboclaw_mapping.drive_left_front.ticks_per_rev', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_left_front.gear_ratio', Parameter.Type.DOUBLE),
-                ('roboclaw_mapping.drive_left_middle.address', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_left_middle.channel', Parameter.Type.STRING),
-                ('roboclaw_mapping.drive_left_middle.ticks_per_rev', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_left_middle.gear_ratio', Parameter.Type.DOUBLE),
-                ('roboclaw_mapping.drive_left_back.address', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_left_back.channel', Parameter.Type.STRING),
-                ('roboclaw_mapping.drive_left_back.ticks_per_rev', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_left_back.gear_ratio', Parameter.Type.DOUBLE),
-                ('roboclaw_mapping.drive_right_front.address', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_right_front.channel', Parameter.Type.STRING),
-                ('roboclaw_mapping.drive_right_front.ticks_per_rev', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_right_front.gear_ratio', Parameter.Type.DOUBLE),
-                ('roboclaw_mapping.drive_right_middle.address', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_right_middle.channel', Parameter.Type.STRING),
-                ('roboclaw_mapping.drive_right_middle.ticks_per_rev', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_right_middle.gear_ratio', Parameter.Type.DOUBLE),
-                ('roboclaw_mapping.drive_right_back.address', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_right_back.channel', Parameter.Type.STRING),
-                ('roboclaw_mapping.drive_right_back.ticks_per_rev', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.drive_right_back.gear_ratio', Parameter.Type.DOUBLE)
+                ('roboclaw_mapping.front_right_mecanum_joint.address', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.front_right_mecanum_joint.channel', Parameter.Type.STRING),
+                ('roboclaw_mapping.front_right_mecanum_joint.ticks_per_rev', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.front_right_mecanum_joint.gear_ratio', Parameter.Type.DOUBLE),
+                ('roboclaw_mapping.front_left_mecanum_joint.address', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.front_left_mecanum_joint.channel', Parameter.Type.STRING),
+                ('roboclaw_mapping.front_left_mecanum_joint.ticks_per_rev', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.front_left_mecanum_joint.gear_ratio', Parameter.Type.DOUBLE),
+                ('roboclaw_mapping.rear_right_mecanum_joint.address', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.rear_right_mecanum_joint.channel', Parameter.Type.STRING),
+                ('roboclaw_mapping.rear_right_mecanum_joint.ticks_per_rev', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.rear_right_mecanum_joint.gear_ratio', Parameter.Type.DOUBLE),
+                ('roboclaw_mapping.rear_left_mecanum_joint.address', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.rear_left_mecanum_joint.channel', Parameter.Type.STRING),
+                ('roboclaw_mapping.rear_left_mecanum_joint.ticks_per_rev', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.rear_left_mecanum_joint.gear_ratio', Parameter.Type.DOUBLE),
+                ('roboclaw_mapping.small_package_roller_joint.address', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.small_package_roller_joint.channel', Parameter.Type.STRING),
+                ('roboclaw_mapping.small_package_roller_joint.ticks_per_rev', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.small_package_roller_joint.gear_ratio', Parameter.Type.DOUBLE),
+                ('roboclaw_mapping.small_package_grabber_roller_1_joint.address', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.small_package_grabber_roller_1_joint.channel', Parameter.Type.STRING),
+                ('roboclaw_mapping.small_package_grabber_roller_1_joint.ticks_per_rev', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.small_package_grabber_roller_1_joint.gear_ratio', Parameter.Type.DOUBLE)
             ]
         )
 
         self.roboclaw_mapping = defaultdict(dict)
-        self.roboclaw_mapping["drive_left_front"]["address"] = self.get_parameter('roboclaw_mapping.drive_left_front.address').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_left_middle"]["address"] = self.get_parameter('roboclaw_mapping.drive_left_middle.address').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_left_back"]["address"] = self.get_parameter('roboclaw_mapping.drive_left_back.address').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_right_front"]["address"] = self.get_parameter('roboclaw_mapping.drive_right_front.address').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_right_middle"]["address"] = self.get_parameter('roboclaw_mapping.drive_right_middle.address').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_right_back"]["address"] = self.get_parameter('roboclaw_mapping.drive_right_back.address').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_left_front"]["channel"] = self.get_parameter('roboclaw_mapping.drive_left_front.channel').get_parameter_value().string_value
-        self.roboclaw_mapping["drive_left_middle"]["channel"] = self.get_parameter('roboclaw_mapping.drive_left_middle.channel').get_parameter_value().string_value
-        self.roboclaw_mapping["drive_left_back"]["channel"] = self.get_parameter('roboclaw_mapping.drive_left_back.channel').get_parameter_value().string_value
-        self.roboclaw_mapping["drive_right_front"]["channel"] = self.get_parameter('roboclaw_mapping.drive_right_front.channel').get_parameter_value().string_value
-        self.roboclaw_mapping["drive_right_middle"]["channel"] = self.get_parameter('roboclaw_mapping.drive_right_middle.channel').get_parameter_value().string_value
-        self.roboclaw_mapping["drive_right_back"]["channel"] = self.get_parameter('roboclaw_mapping.drive_right_back.channel').get_parameter_value().string_value
-        self.roboclaw_mapping["drive_left_front"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.drive_left_front.ticks_per_rev').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_left_middle"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.drive_left_middle.ticks_per_rev').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_left_back"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.drive_left_back.ticks_per_rev').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_right_front"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.drive_right_front.ticks_per_rev').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_right_middle"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.drive_right_middle.ticks_per_rev').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_right_back"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.drive_right_back.ticks_per_rev').get_parameter_value().integer_value
-        self.roboclaw_mapping["drive_left_front"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.drive_left_front.gear_ratio').get_parameter_value().double_value
-        self.roboclaw_mapping["drive_left_middle"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.drive_left_middle.gear_ratio').get_parameter_value().double_value
-        self.roboclaw_mapping["drive_left_back"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.drive_left_back.gear_ratio').get_parameter_value().double_value
-        self.roboclaw_mapping["drive_right_front"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.drive_right_front.gear_ratio').get_parameter_value().double_value
-        self.roboclaw_mapping["drive_right_middle"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.drive_right_middle.gear_ratio').get_parameter_value().double_value
-        self.roboclaw_mapping["drive_right_back"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.drive_right_back.gear_ratio').get_parameter_value().double_value
+        self.roboclaw_mapping["front_right_mecanum_joint"]["address"] = self.get_parameter('roboclaw_mapping.front_right_mecanum_joint.address').get_parameter_value().integer_value
+        self.roboclaw_mapping["front_left_mecanum_joint"]["address"] = self.get_parameter('roboclaw_mapping.front_left_mecanum_joint.address').get_parameter_value().integer_value
+        self.roboclaw_mapping["rear_right_mecanum_joint"]["address"] = self.get_parameter('roboclaw_mapping.rear_right_mecanum_joint.address').get_parameter_value().integer_value
+        self.roboclaw_mapping["rear_left_mecanum_joint"]["address"] = self.get_parameter('roboclaw_mapping.rear_left_mecanum_joint.address').get_parameter_value().integer_value
+        self.roboclaw_mapping["small_package_roller_joint"]["address"] = self.get_parameter('roboclaw_mapping.small_package_roller_joint.address').get_parameter_value().integer_value
+        self.roboclaw_mapping["small_package_grabber_roller_1_joint"]["address"] = self.get_parameter('roboclaw_mapping.small_package_grabber_roller_1_joint.address').get_parameter_value().integer_value
+        self.roboclaw_mapping["front_right_mecanum_joint"]["channel"] = self.get_parameter('roboclaw_mapping.front_right_mecanum_joint.channel').get_parameter_value().string_value
+        self.roboclaw_mapping["front_left_mecanum_joint"]["channel"] = self.get_parameter('roboclaw_mapping.front_left_mecanum_joint.channel').get_parameter_value().string_value
+        self.roboclaw_mapping["rear_right_mecanum_joint"]["channel"] = self.get_parameter('roboclaw_mapping.rear_right_mecanum_joint.channel').get_parameter_value().string_value
+        self.roboclaw_mapping["rear_left_mecanum_joint"]["channel"] = self.get_parameter('roboclaw_mapping.rear_left_mecanum_joint.channel').get_parameter_value().string_value
+        self.roboclaw_mapping["small_package_roller_joint"]["channel"] = self.get_parameter('roboclaw_mapping.small_package_roller_joint.channel').get_parameter_value().string_value
+        self.roboclaw_mapping["small_package_grabber_roller_1_joint"]["channel"] = self.get_parameter('roboclaw_mapping.small_package_grabber_roller_1_joint.channel').get_parameter_value().string_value
+        self.roboclaw_mapping["front_right_mecanum_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.front_right_mecanum_joint.ticks_per_rev').get_parameter_value().integer_value
+        self.roboclaw_mapping["front_left_mecanum_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.front_left_mecanum_joint.ticks_per_rev').get_parameter_value().integer_value
+        self.roboclaw_mapping["rear_right_mecanum_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.rear_right_mecanum_joint.ticks_per_rev').get_parameter_value().integer_value
+        self.roboclaw_mapping["rear_left_mecanum_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.rear_left_mecanum_joint.ticks_per_rev').get_parameter_value().integer_value
+        self.roboclaw_mapping["small_package_roller_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.small_package_roller_joint.ticks_per_rev').get_parameter_value().integer_value
+        self.roboclaw_mapping["small_package_grabber_roller_1_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.small_package_grabber_roller_1_joint.ticks_per_rev').get_parameter_value().integer_value
+        self.roboclaw_mapping["front_right_mecanum_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.front_right_mecanum_joint.gear_ratio').get_parameter_value().double_value
+        self.roboclaw_mapping["front_left_mecanum_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.front_left_mecanum_joint.gear_ratio').get_parameter_value().double_value
+        self.roboclaw_mapping["rear_right_mecanum_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.rear_right_mecanum_joint.gear_ratio').get_parameter_value().double_value
+        self.roboclaw_mapping["rear_left_mecanum_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.rear_left_mecanum_joint.gear_ratio').get_parameter_value().double_value
+        self.roboclaw_mapping["small_package_roller_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.small_package_roller_joint.gear_ratio').get_parameter_value().double_value
+        self.roboclaw_mapping["small_package_grabber_roller_1_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.small_package_grabber_roller_1_joint.gear_ratio').get_parameter_value().double_value
 
         self.encoder_limits = {}
         self.establish_roboclaw_connections()
@@ -115,7 +115,8 @@ class RoboclawWrapper(Node):
         self.stop_motors()
 
         # set up publishers and subscribers
-        self.drive_cmd_sub = self.create_subscription(CommandDrive, "/cmd_drive", self.drive_cmd_cb, 1)
+        # self.drive_cmd_sub = self.create_subscription(CommandDrive, "/cmd_drive", self.drive_cmd_cb, 1)
+        self.drive_cmd_sub = self.create_subscription(JointState, "/joint_command", self.drive_cmd_cb, 1)
         self.enc_pub = self.create_publisher(JointState, "/drive_state", 1)
         self.status_pub = self.create_publisher(Status, "/status", 1)
 
@@ -243,29 +244,13 @@ class RoboclawWrapper(Node):
         """
         Sends the drive command to the motor controller, closed loop velocity commands
         """
-        props = self.roboclaw_mapping["drive_left_front"]
-        vel_cmd = self.velocity2qpps(cmd.left_front_vel, props["ticks_per_rev"], props["gear_ratio"])
-        self.send_velocity_cmd(props["address"], props["channel"], vel_cmd)
-
-        props = self.roboclaw_mapping["drive_left_middle"]
-        vel_cmd = self.velocity2qpps(cmd.left_middle_vel, props["ticks_per_rev"], props["gear_ratio"])
-        self.send_velocity_cmd(props["address"], props["channel"], vel_cmd)
-
-        props = self.roboclaw_mapping["drive_left_back"]
-        vel_cmd = self.velocity2qpps(cmd.left_back_vel, props["ticks_per_rev"], props["gear_ratio"])
-        self.send_velocity_cmd(props["address"], props["channel"], vel_cmd)
-
-        props = self.roboclaw_mapping["drive_right_back"]
-        vel_cmd = self.velocity2qpps(cmd.right_back_vel, props["ticks_per_rev"], props["gear_ratio"])
-        self.send_velocity_cmd(props["address"], props["channel"], vel_cmd)
-
-        props = self.roboclaw_mapping["drive_right_middle"]
-        vel_cmd = self.velocity2qpps(cmd.right_middle_vel, props["ticks_per_rev"], props["gear_ratio"])
-        self.send_velocity_cmd(props["address"], props["channel"], vel_cmd)
-
-        props = self.roboclaw_mapping["drive_right_front"]
-        vel_cmd = self.velocity2qpps(cmd.right_front_vel, props["ticks_per_rev"], props["gear_ratio"])
-        self.send_velocity_cmd(props["address"], props["channel"], vel_cmd)
+        # forloop that reads through joint states message and sends velocity commands to each motor
+        for i in range(len(cmd.name)):
+            # check if the motor is in the roboclaw mapping
+            if cmd.name[i] in self.roboclaw_mapping:
+                props = self.roboclaw_mapping[cmd.name[i]]
+                vel_cmd = self.velocity2qpps(cmd.velocity[i], props["ticks_per_rev"], props["gear_ratio"])
+                self.send_velocity_cmd(props["address"], props["channel"], vel_cmd)
 
     def read_encoder_position(self, address, channel):
         """Wrapper around self.rc.ReadEncM1 and self.rcReadEncM2 to simplify code"""

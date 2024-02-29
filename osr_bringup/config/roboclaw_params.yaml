@@ -8,32 +8,32 @@ roboclaw_wrapper:
     addresses: [128, 129, 130]
     roboclaw_mapping:
       # gear ratio is approx 172, exact value is 171.79 though
-      drive_left_front:
+      front_left_mecanum_joint:
         address: 128
         channel: M1
         ticks_per_rev: 48
         gear_ratio: 171.79
-      drive_left_middle:
+      rear_left_mecanum_joint:
         address: 128
         channel: M2
         ticks_per_rev: 48
         gear_ratio: 171.79
-      drive_left_back:
+      front_right_mecanum_joint:
         address: 129
         channel: M2
         ticks_per_rev: 48
         gear_ratio: 171.79
-      drive_right_back:
+      rear_right_mecanum_joint:
         address: 129
         channel: M1
         ticks_per_rev: 48
         gear_ratio: 171.79
-      drive_right_middle:
+      small_package_sweeper_joint:
         address: 130
         channel: M2
         ticks_per_rev: 48
         gear_ratio: 171.79
-      drive_right_front:
+      small_package_grabber_roller_1_joint:
         address: 130
         channel: M1
         ticks_per_rev: 48
