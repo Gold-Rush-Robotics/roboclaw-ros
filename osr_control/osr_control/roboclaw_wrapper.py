@@ -52,10 +52,10 @@ class RoboclawWrapper(Node):
                 ('roboclaw_mapping.rear_left_mecanum_joint.channel', Parameter.Type.STRING),
                 ('roboclaw_mapping.rear_left_mecanum_joint.ticks_per_rev', Parameter.Type.INTEGER),
                 ('roboclaw_mapping.rear_left_mecanum_joint.gear_ratio', Parameter.Type.DOUBLE),
-                ('roboclaw_mapping.small_package_roller_joint.address', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.small_package_roller_joint.channel', Parameter.Type.STRING),
-                ('roboclaw_mapping.small_package_roller_joint.ticks_per_rev', Parameter.Type.INTEGER),
-                ('roboclaw_mapping.small_package_roller_joint.gear_ratio', Parameter.Type.DOUBLE),
+                ('roboclaw_mapping.small_package_sweeper_joint.address', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.small_package_sweeper_joint.channel', Parameter.Type.STRING),
+                ('roboclaw_mapping.small_package_sweeper_joint.ticks_per_rev', Parameter.Type.INTEGER),
+                ('roboclaw_mapping.small_package_sweeper_joint.gear_ratio', Parameter.Type.DOUBLE),
                 ('roboclaw_mapping.small_package_grabber_roller_1_joint.address', Parameter.Type.INTEGER),
                 ('roboclaw_mapping.small_package_grabber_roller_1_joint.channel', Parameter.Type.STRING),
                 ('roboclaw_mapping.small_package_grabber_roller_1_joint.ticks_per_rev', Parameter.Type.INTEGER),
@@ -68,25 +68,25 @@ class RoboclawWrapper(Node):
         self.roboclaw_mapping["front_left_mecanum_joint"]["address"] = self.get_parameter('roboclaw_mapping.front_left_mecanum_joint.address').get_parameter_value().integer_value
         self.roboclaw_mapping["rear_right_mecanum_joint"]["address"] = self.get_parameter('roboclaw_mapping.rear_right_mecanum_joint.address').get_parameter_value().integer_value
         self.roboclaw_mapping["rear_left_mecanum_joint"]["address"] = self.get_parameter('roboclaw_mapping.rear_left_mecanum_joint.address').get_parameter_value().integer_value
-        self.roboclaw_mapping["small_package_roller_joint"]["address"] = self.get_parameter('roboclaw_mapping.small_package_roller_joint.address').get_parameter_value().integer_value
+        self.roboclaw_mapping["small_package_sweeper_joint"]["address"] = self.get_parameter('roboclaw_mapping.small_package_sweeper_joint.address').get_parameter_value().integer_value
         self.roboclaw_mapping["small_package_grabber_roller_1_joint"]["address"] = self.get_parameter('roboclaw_mapping.small_package_grabber_roller_1_joint.address').get_parameter_value().integer_value
         self.roboclaw_mapping["front_right_mecanum_joint"]["channel"] = self.get_parameter('roboclaw_mapping.front_right_mecanum_joint.channel').get_parameter_value().string_value
         self.roboclaw_mapping["front_left_mecanum_joint"]["channel"] = self.get_parameter('roboclaw_mapping.front_left_mecanum_joint.channel').get_parameter_value().string_value
         self.roboclaw_mapping["rear_right_mecanum_joint"]["channel"] = self.get_parameter('roboclaw_mapping.rear_right_mecanum_joint.channel').get_parameter_value().string_value
         self.roboclaw_mapping["rear_left_mecanum_joint"]["channel"] = self.get_parameter('roboclaw_mapping.rear_left_mecanum_joint.channel').get_parameter_value().string_value
-        self.roboclaw_mapping["small_package_roller_joint"]["channel"] = self.get_parameter('roboclaw_mapping.small_package_roller_joint.channel').get_parameter_value().string_value
+        self.roboclaw_mapping["small_package_sweeper_joint"]["channel"] = self.get_parameter('roboclaw_mapping.small_package_sweeper_joint.channel').get_parameter_value().string_value
         self.roboclaw_mapping["small_package_grabber_roller_1_joint"]["channel"] = self.get_parameter('roboclaw_mapping.small_package_grabber_roller_1_joint.channel').get_parameter_value().string_value
         self.roboclaw_mapping["front_right_mecanum_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.front_right_mecanum_joint.ticks_per_rev').get_parameter_value().integer_value
         self.roboclaw_mapping["front_left_mecanum_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.front_left_mecanum_joint.ticks_per_rev').get_parameter_value().integer_value
         self.roboclaw_mapping["rear_right_mecanum_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.rear_right_mecanum_joint.ticks_per_rev').get_parameter_value().integer_value
         self.roboclaw_mapping["rear_left_mecanum_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.rear_left_mecanum_joint.ticks_per_rev').get_parameter_value().integer_value
-        self.roboclaw_mapping["small_package_roller_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.small_package_roller_joint.ticks_per_rev').get_parameter_value().integer_value
+        self.roboclaw_mapping["small_package_sweeper_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.small_package_sweeper_joint.ticks_per_rev').get_parameter_value().integer_value
         self.roboclaw_mapping["small_package_grabber_roller_1_joint"]["ticks_per_rev"] = self.get_parameter('roboclaw_mapping.small_package_grabber_roller_1_joint.ticks_per_rev').get_parameter_value().integer_value
         self.roboclaw_mapping["front_right_mecanum_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.front_right_mecanum_joint.gear_ratio').get_parameter_value().double_value
         self.roboclaw_mapping["front_left_mecanum_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.front_left_mecanum_joint.gear_ratio').get_parameter_value().double_value
         self.roboclaw_mapping["rear_right_mecanum_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.rear_right_mecanum_joint.gear_ratio').get_parameter_value().double_value
         self.roboclaw_mapping["rear_left_mecanum_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.rear_left_mecanum_joint.gear_ratio').get_parameter_value().double_value
-        self.roboclaw_mapping["small_package_roller_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.small_package_roller_joint.gear_ratio').get_parameter_value().double_value
+        self.roboclaw_mapping["small_package_sweeper_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.small_package_sweeper_joint.gear_ratio').get_parameter_value().double_value
         self.roboclaw_mapping["small_package_grabber_roller_1_joint"]["gear_ratio"] = self.get_parameter('roboclaw_mapping.small_package_grabber_roller_1_joint.gear_ratio').get_parameter_value().double_value
 
         self.encoder_limits = {}
