@@ -1,0 +1,40 @@
+roboclaw_wrapper:
+  ros__parameters:
+    drive_acceleration_factor: 0.1  # fraction used to scale the drive motor acceleration (0, 1]
+    corner_acceleration_factor: 0.8  # fraction used to scale the corner motor acceleration (0, 1])
+    velocity_timeout: 2.0  # maximum time [s] a particular velocity command will stay active without a new command before stopping
+    baud_rate: 115200
+    device: "/dev/serial0"
+    addresses: [129, 130,131]
+    roboclaw_mapping:
+      # gear ratio is approx 172, exact value is 30 though
+      front_left_mecanum_joint:
+        address: 129
+        channel: M2
+        ticks_per_rev: 1920
+        gear_ratio: 30
+      rear_left_mecanum_joint:
+        address: 130
+        channel: M1
+        ticks_per_rev: 1920
+        gear_ratio: 30
+      front_right_mecanum_joint:
+        address: 129
+        channel: M1
+        ticks_per_rev: 1920
+        gear_ratio: 30
+      rear_right_mecanum_joint:
+        address: 130
+        channel: M2
+        ticks_per_rev: 1920
+        gear_ratio: 30
+      small_package_sweeper_joint:
+        address: 131
+        channel: M2
+        ticks_per_rev: 1920
+        gear_ratio: 30
+      small_package_grabber_roller_1_joint:
+        address: 131
+        channel: M1
+        ticks_per_rev: 1920
+        gear_ratio: 30
