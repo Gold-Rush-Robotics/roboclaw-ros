@@ -8,7 +8,7 @@ from rclpy.node import Node
 from osr_control.roboclaw import Roboclaw
 
 from sensor_msgs.msg import JointState
-from osr_interfaces.msg import CommandDrive, Status
+from osr_interfaces.msg import Status
 
 
 class RoboclawWrapper(Node):
@@ -116,7 +116,7 @@ class RoboclawWrapper(Node):
 
         # set up publishers and subscribers
         # self.drive_cmd_sub = self.create_subscription(CommandDrive, "/cmd_drive", self.drive_cmd_cb, 1)
-        self.drive_cmd_sub = self.create_subscription(JointState, "/joint_command", self.drive_cmd_cb, 1)
+        self.drive_cmd_sub = self.create_subscription(JointState, "/drive_command", self.drive_cmd_cb, 1)
         self.enc_pub = self.create_publisher(JointState, "/drive_state", 1)
         self.status_pub = self.create_publisher(Status, "/status", 1)
 
@@ -143,27 +143,27 @@ class RoboclawWrapper(Node):
             self.time_last_cmd = now
 
         # read from roboclaws and publish
-        try:
-            self.read_encoder_values()
-            self.enc_pub.publish(self.current_enc_vals)
-        except AssertionError as read_exc:
-            self.get_logger().warn("Failed to read encoder values")
-            self.get_logger().warn(read_exc.args)
+        # try:
+        #     self.read_encoder_values()
+        #     self.enc_pub.publish(self.current_enc_vals)
+        # except AssertionError as read_exc:
+        #     self.get_logger().warn("Failed to read encoder values")
+        #     self.get_logger().warn(read_exc.args)
 
-        # stop the motors if we haven't received a command in a while
-        if not self.idle and (now - self.time_last_cmd > self.velocity_timeout):
-            # rather than a hard stop, send a ramped velocity command to 0
-            if not self.idle_ramp:
-                self.get_logger().debug("Idling: ramping down velocity to zero")
-                self.idle_ramp = True
-                drive_cmd_buffer = CommandDrive()
-                self.send_drive_buffer_velocity(drive_cmd_buffer)
-            # if we've already ramped down, send a full stop to minimize
-            # idle power consumption
-            else:
-                self.get_logger().debug("Idling: full stopping motors")
-                self.stop_motors()
-                self.idle = True
+        # # stop the motors if we haven't received a command in a while
+        # if not self.idle and (now - self.time_last_cmd > self.velocity_timeout):
+        #     # rather than a hard stop, send a ramped velocity command to 0
+        #     if not self.idle_ramp:
+        #         self.get_logger().debug("Idling: ramping down velocity to zero")
+        #         self.idle_ramp = True
+        #         drive_cmd_buffer = JointState()
+        #         self.send_drive_buffer_velocity(drive_cmd_buffer)
+        #     # if we've already ramped down, send a full stop to minimize
+        #     # idle power consumption
+        #     else:
+        #         self.get_logger().debug("Idling: full stopping motors")
+        #         self.stop_motors()
+        #         self.idle = True
             
             # so that's there's a delay between ramping and full stop
             self.time_last_cmd = now
@@ -248,6 +248,7 @@ class RoboclawWrapper(Node):
         for i in range(len(cmd.name)):
             # check if the motor is in the roboclaw mapping
             if cmd.name[i] in self.roboclaw_mapping:
+            # if cmd.name[i]== "rear_left_mecanum_joint":
                 props = self.roboclaw_mapping[cmd.name[i]]
                 vel_cmd = self.velocity2qpps(cmd.velocity[i], props["ticks_per_rev"], props["gear_ratio"])
                 self.send_velocity_cmd(props["address"], props["channel"], vel_cmd)
