@@ -103,7 +103,7 @@ class RoboclawWrapper(Node):
 
         # Even though the actual method takes longs (2*32-1), roboclaw blog says 2**15 is 100%
         accel_max = 2**15-1
-        self.roboclaw_overflow = 2**15-1
+        self.roboclaw_overflow = 10000
         # drive motor acceleration
         accel_max = 2**15-1
         accel_rate = self.get_parameter('drive_acceleration_factor').get_parameter_value().double_value
@@ -135,20 +135,19 @@ class RoboclawWrapper(Node):
         # Check to see if there are commands in the buffer to send to the motor controller
         now = self.get_clock().now()
         if self.drive_cmd_buffer:
-            drive_fcn = self.send_drive_buffer_velocity
-            drive_fcn(self.drive_cmd_buffer)
+            self.send_drive_buffer_velocity(self.drive_cmd_buffer)
             self.drive_cmd_buffer = None
             self.idle_ramp = False
             self.idle = False
             self.time_last_cmd = now
 
         # read from roboclaws and publish
-        # try:
-        #     self.read_encoder_values()
-        #     self.enc_pub.publish(self.current_enc_vals)
-        # except AssertionError as read_exc:
-        #     self.get_logger().warn("Failed to read encoder values")
-        #     self.get_logger().warn(read_exc.args)
+        try:
+            self.read_encoder_values()
+            self.enc_pub.publish(self.current_enc_vals)
+        except AssertionError as read_exc:
+            self.get_logger().warn("Failed to read encoder values")
+            #self.get_logger().warn(read_exc.args)
 
         # # stop the motors if we haven't received a command in a while
         # if not self.idle and (now - self.time_last_cmd > self.velocity_timeout):
@@ -168,7 +167,8 @@ class RoboclawWrapper(Node):
             # so that's there's a delay between ramping and full stop
             self.time_last_cmd = now
 
-    def slow_update(self):
+    def slow_update(self): #fine
+        
         """Slower roboclaw read/write cycle"""
         self.status.battery = self.read_battery()
         self.status.temp = self.read_temperatures()
@@ -203,6 +203,12 @@ class RoboclawWrapper(Node):
             self.get_logger().info("Sucessfully connected to RoboClaw motor controllers")
         else:
             raise Exception("Unable to establish connection to one or more of the Roboclaw motor controllers")
+        
+        for address in self.address:
+            self.rc.SetM1VelocityPID(address, 1, 0, 0, 10000)
+            self.rc.SetM2VelocityPID(address, 1, 0, 0, 10000)
+
+
 
     def setup_encoders(self):
         """Set up the encoders"""
@@ -290,6 +296,7 @@ class RoboclawWrapper(Node):
         """
         # clip values
         target_qpps = max(-self.roboclaw_overflow, min(self.roboclaw_overflow, target_qpps))
+        self.get_logger().info(f"{address}, {self.drive_accel}, {target_qpps}")
         if channel == "M1":
             return self.rc.SpeedAccelM1(address, self.drive_accel, target_qpps)
         elif channel == "M2":
@@ -375,6 +382,7 @@ class RoboclawWrapper(Node):
         :param gear_ratio:
         :return: int
         """
+        self.get_logger().info(f"Velocity command {velocity}")
         return int(velocity * gear_ratio * ticks_per_rev / (2 * math.pi))
 
     def read_battery(self):
