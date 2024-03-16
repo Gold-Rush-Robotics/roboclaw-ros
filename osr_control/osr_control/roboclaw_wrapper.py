@@ -204,9 +204,12 @@ class RoboclawWrapper(Node):
         else:
             raise Exception("Unable to establish connection to one or more of the Roboclaw motor controllers")
         
-        for address in self.address:
-            self.rc.SetM1VelocityPID(address, 1, 0, 0, 10000)
-            self.rc.SetM2VelocityPID(address, 1, 0, 0, 10000)
+        
+        self.rc.SetM1VelocityPID(130, 1.33289, 0.24868, 0.0, 10000)
+        self.rc.SetM2VelocityPID(130, 1.19756, 0.24062, 0.0, 10000)
+        self.rc.SetM1VelocityPID(129, 0.98359, 0.24771, 0.0, 6083)
+        self.rc.SetM2VelocityPID(129, 0.90848, 0.28011, 0.0, 8231)
+
 
 
 
@@ -243,7 +246,6 @@ class RoboclawWrapper(Node):
         on the next iteration of the run() loop.
         """
         
-        self.get_logger().debug("Drive command callback received: {}".format(cmd))
         self.drive_cmd_buffer = cmd
 
     def send_drive_buffer_velocity(self, cmd):
@@ -254,10 +256,17 @@ class RoboclawWrapper(Node):
         for i in range(len(cmd.name)):
             # check if the motor is in the roboclaw mapping
             if cmd.name[i] in self.roboclaw_mapping:
-            # if cmd.name[i]== "rear_left_mecanum_joint":
+
                 props = self.roboclaw_mapping[cmd.name[i]]
-                vel_cmd = self.velocity2qpps(cmd.velocity[i], props["ticks_per_rev"], props["gear_ratio"])
-                self.send_velocity_cmd(props["address"], props["channel"], vel_cmd)
+                if "mecanum" in cmd.name[i]:
+                    vel_cmd = self.velocity2qpps(cmd.velocity[i], props["ticks_per_rev"], props["gear_ratio"])
+                    print(f"{vel_cmd}")
+                    self.send_velocity_cmd(props["address"], props["channel"], vel_cmd)
+                else:
+                    self.send_speed_cmd(props["address"], props["channel"], cmd.effort[i])
+                
+
+    
 
     def read_encoder_position(self, address, channel):
         """Wrapper around self.rc.ReadEncM1 and self.rcReadEncM2 to simplify code"""
@@ -285,6 +294,21 @@ class RoboclawWrapper(Node):
 
         assert result[0] == 1
         return (result[-2], result[-1])
+    
+    def send_speed_cmd(self, address, channel, speed):
+        target_speed = int(speed) #int(max(min(speed, 100), -100))
+        if channel == "M1":
+            if target_speed >= 0:
+                self.rc.ForwardM1(address, abs(target_speed))
+            else:
+                self.rc.BackwardM1(address, abs(target_speed))
+        elif channel == "M2":
+            if target_speed >= 0:
+                self.rc.ForwardM2(address, abs(target_speed))
+            else:
+                self.rc.BackwardM2(address, abs(target_speed))
+        else:
+            raise AttributeError("Received unknown channel '{}'. Expected M1 or M2".format(channel))
 
     def send_velocity_cmd(self, address, channel, target_qpps):
         """
@@ -296,7 +320,6 @@ class RoboclawWrapper(Node):
         """
         # clip values
         target_qpps = max(-self.roboclaw_overflow, min(self.roboclaw_overflow, target_qpps))
-        self.get_logger().info(f"{address}, {self.drive_accel}, {target_qpps}")
         if channel == "M1":
             return self.rc.SpeedAccelM1(address, self.drive_accel, target_qpps)
         elif channel == "M2":
@@ -382,7 +405,6 @@ class RoboclawWrapper(Node):
         :param gear_ratio:
         :return: int
         """
-        self.get_logger().info(f"Velocity command {velocity}")
         return int(velocity * gear_ratio * ticks_per_rev / (2 * math.pi))
 
     def read_battery(self):

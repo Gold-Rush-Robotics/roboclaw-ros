@@ -1,6 +1,6 @@
 roboclaw_wrapper:
   ros__parameters:
-    drive_acceleration_factor: 1.0  # fraction used to scale the drive motor acceleration (0, 1]
+    drive_acceleration_factor: 0.14523  # fraction used to scale the drive motor acceleration (0, 1]
     corner_acceleration_factor: 1.0  # fraction used to scale the corner motor acceleration (0, 1])
     velocity_timeout: 2.0  # maximum time [s] a particular velocity command will stay active without a new command before stopping
     baud_rate: 115200
@@ -30,11 +30,11 @@ roboclaw_wrapper:
         gear_ratio: 30.0
       small_package_sweeper_joint:
         address: 131
-        channel: M2
+        channel: M1
         ticks_per_rev: 64
         gear_ratio: 30.0
       small_package_grabber_roller_1_joint:
         address: 131
-        channel: M1
+        channel: M2
         ticks_per_rev: 64
         gear_ratio: 30.0
